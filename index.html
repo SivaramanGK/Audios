@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #121212;
+      color: #fff;
+    }
+    .container-flex {
+      display: flex;
+      min-height: 100vh;
+      
+    }
+    ul, li{
+        list-style: none;
+        margin-bottom: 5px;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+    }
+    .left, .right {
+      padding: 20px;
+    }
+    .right {
+      width: 250px;
+      background-color: #000;
+    }
+    .left {
+      flex: 1;
+      background-color: #181818;
+    }
+    .button {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .button button {
+      margin: 5px;
+      padding: 10px;
+    }
+    .card-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: #282828;
+      padding: 15px;
+      width: 150px;
+      cursor: pointer;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .card img {
+      width: 100%;
+      height: 300px;
+      border-radius: 5px;
+    }
+    .playlist-view {
+      display: none;
+    }
+    .playlist-header {
+      display: flex;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .playlist-header img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    .songs {
+      margin-top: 20px;
+    }
+    .song {
+      padding: 10px;
+      background: #282828;
+      margin-bottom: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .playbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #000;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container-flex">
+    <!-- Left Sidebar -->
+    <div class="right">
+      <div class="home">
+        <div class="logo">
+          <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Logo" height="17" />
+          <strong>🎧 SandBox Musics</strong>
+        </div>
+        <ul>
+          <li> <a href="">🏠︎ Home</a></li>
+          <li> <a href="">˖⌕ ۫ . . . ﹫Search</a></li>
+        </ul>
+      </div>
+      <div class="library">
+        <div class="shadowbox1">
+          <h4>Your Library</h4>
+          <h6>Create Your First Playlist</h6>
+          <h6>It's Easy, I will help you</h6>
+          <button>Create Playlist</button>
+        </div>
+        <div class="shadowbox1">
+          <h4>Podcasts</h4>
+          <h6>Follow some podcasts to get updates</h6>
+          <button>Browse Podcasts</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="left">
+      <div class="button">
+        <button>Sign Up</button>
+        <button>Create Account</button>
+      </div>
+
+      <h1>Trending Songs</h1>
+      <div class="card-container" id="home-view">
+        <div class="card" onclick="openPlaylist(0)">
+          <img src="https://raw.githubusercontent.com/SivaramanGK/Audios/main/thuglife.jpg" alt="ThugLife" />
+          <h2>Thug Life</h2>
+          <p>AR Rahman</p>
+        </div>
+        <div class="card" onclick="openPlaylist(1)">
+          <img src="https://raw.githubusercontent.com/SivaramanGK/Audios/main/retro.jpg" alt="Retro" />
+          <h2>Retro</h2>
+          <p>SANA</p>
+        </div>
+      </div>
+
+      <div id="playlist-view" class="playlist-view">
+        <div class="playlist-header">
+          <img id="cover" src="" />
+          <div>
+            <h1 id="title"></h1>
+            <p id="artist"></p>
+            <button onclick="playSong(0)">▶ Play All</button>
+          </div>
+        </div>
+        <div class="songs" id="songs"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Playbar -->
+  <div class="playbar">
+    <div id="now-playing">Now Playing: -</div>
+    <div>
+      <button onclick="prevSong()">⏮</button>
+      <button onclick="togglePlay()" id="play">▶</button>
+      <button onclick="nextSong()">⏭</button>
+    </div>
+  </div>
+
+  <!-- Script -->
+  <script>
+    const playlists = [
+      {
+        title: "Thug Life",
+        artist: "AR Rahman",
+        cover: "https://raw.githubusercontent.com/SivaramanGK/Audios/main/thuglife.jpg",
+        songs: [
+          {
+            name: "O Maara",
+            url: "https://github.com/SivaramanGK/Audios/raw/main/O%20Maara.mp3",
+            duration: "2:59"},
+           {name: "Vinveli Nayaka",
+            url: "https://raw.githubusercontent.com/SivaramanGK/Audios/main/Vinveli%20Nayaga.mp3",
+            duration: "2:59",
+          },
+        ],
+      },
+      {
+        title: "Retro",
+        artist: "SANA",
+        cover: "https://raw.githubusercontent.com/SivaramanGK/Audios/main/retro.jpg",
+        songs: [
+          {
+            name: "The One",
+            url: "https://raw.githubusercontent.com/SivaramanGK/Audios/main/The%20One.mp3",
+            duration: "3:20",
+          },
+        ],
+      },
+    ];
+
+    let audio = new Audio();
+    let current = 0;
+    let currentPlaylist = null;
+    let isPlaying = false;
+
+    function openPlaylist(index) {
+      currentPlaylist = playlists[index];
+      current = 0;
+      document.getElementById("home-view").style.display = "none";
+      document.getElementById("playlist-view").style.display = "block";
+
+      document.getElementById("title").textContent = currentPlaylist.title;
+      document.getElementById("artist").textContent = currentPlaylist.artist;
+      document.getElementById("cover").src = currentPlaylist.cover;
+
+      const songList = document.getElementById("songs");
+      songList.innerHTML = "";
+      currentPlaylist.songs.forEach((song, i) => {
+        const div = document.createElement("div");
+        div.className = "song";
+        div.textContent = `${song.name} • ${song.duration}`;
+        div.onclick = () => playSong(i);
+        songList.appendChild(div);
+      });
+    }
+
+    function playSong(index) {
+      if (!currentPlaylist) return;
+      current = index;
+      audio.src = currentPlaylist.songs[current].url;
+      audio.play();
+      isPlaying = true;
+      document.getElementById("now-playing").textContent = `Now Playing: ${currentPlaylist.songs[current].name}`;
+      document.getElementById("play").textContent = "⏸";
+    }
+
+    function togglePlay() {
+      if (!audio.src) return;
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        document.getElementById("play").textContent = "▶";
+      } else {
+        audio.play();
+        isPlaying = true;
+        document.getElementById("play").textContent = "⏸";
+      }
+    }
+
+    function nextSong() {
+      if (!currentPlaylist) return;
+      current = (current + 1) % currentPlaylist.songs.length;
+      playSong(current);
+    }
+
+    function prevSong() {
+      if (!currentPlaylist) return;
+      current = (current - 1 + currentPlaylist.songs.length) % currentPlaylist.songs.length;
+      playSong(current);
+    }
+  </script>
+</body>
+</html>
