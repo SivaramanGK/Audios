@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sivaraman Ganesan - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #0f172a;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #1e293b;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #60a5fa;
+    }
+
+    section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding-top: 5rem;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #94a3b8;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background-color: #1e293b;
+      border-radius: 10px;
+      padding: 1rem;
+      transition: 0.3s;
+    }
+
+    .project-card:hover {
+      background-color: #334155;
+    }
+
+    .project-card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #60a5fa;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background-color: #1e293b;
+      margin-top: 4rem;
+      color: #94a3b8;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sivaraman G</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Hello, I'm Sivaraman</h2>
+    <p>Frontend Developer & UI Designer passionate about crafting beautiful web experiences.</p>
+  </section>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I’m a self-taught frontend developer with 2+ years of experience building responsive websites and web apps. I specialize in HTML, CSS, JavaScript, and React.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>Music Player App</h3>
+        <p>A fully responsive web app with playlist, audio controls, and volume settings.</p>
+      </div>
+      <div class="project-card">
+        <h3>Portfolio Website</h3>
+        <p>My personal portfolio built with modern CSS and mobile-first design.</p>
+      </div>
+      <div class="project-card">
+        <h3>Task Tracker</h3>
+        <p>A simple React app to manage daily tasks with reminders and animations.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Feel free to connect with me via email or social media:</p>
+    <a href="mailto:sivaraman@example.com">📧 sivaraman@example.com</a>
+  </section>
+
+  <footer>
+    &copy; 2025 Sivaraman Ganesan. All Rights
